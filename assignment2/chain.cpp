@@ -36,10 +36,6 @@ void chain :: readAndStoreFromFile(char* fileName)
 	}
 	else
 		cout << "Unable to open file";
-
-
-
-
 }
 
 
@@ -56,9 +52,6 @@ void chain :: eraseModuloValue(int theInt)
 			this->erase(i);
 		i++;
 	}
-
-
-
 }
 
 void chain :: oddAndEvenOrdering()
@@ -68,45 +61,67 @@ void chain :: oddAndEvenOrdering()
 	//Note that for two odd (even) 
 	//numbers i and j, the ordering between 
 	//i and j should be intact after reordering.
-	chain *oddchain = new chain(50);
-	oddchain->firstNode = firstNode;
-	chain *evenchain = new chain(50);
+	
 
-	chainNode* even;
-	chainNode* odd;
-
-	int counter = 0;
+	// Create empty chains to store odds and evens
+	chain *oddChain = new chain(100);
+	chain *evenChain = new chain(100);
+	//link oddNode to start of oddChain
+	chainNode *oddNode = oddChain->firstNode;
+	// Sort evens and odds into evenChain and oddChain
+	int countOdd = 0;
+	int countEven = 0;
 	for (int i = 0; i < listSize; i++)
 	{
-		if (counter == 0)
+		if (*this->get(i) % 2 == 0)
 		{
-			if (*this->get(i) % 2 == 0)
-			{
-				evenchain->firstNode = *this->get(i);
-				counter++;
-			} else {
-				odd->next = *this->get(i);
-			}
+			evenChain->insert(countEven, *this->get(i));
+			countEven++;
 		} else {
-
-			if (*this->get(i) % 2 == 0)
-			{
-			even->next = *this->get(i);
-			}
+			oddChain->insert(countOdd, *this->get(i));
+			countOdd++;
 		}
 
 	}
-	even->next = NULL;
-	odd->next = evenchain->firstNode;
-	delete this;
-	firstNode = oddchain->firstNode;
+	chainNode *evenNode = evenChain->firstNode;	
+		
+	//empty "this" chain
+	while(this->get(0) != NULL) {
+		this->erase(0);
+	}
+	
+
+	//insert oddChain into newly emptied this chain
+	for (int i = 0; i < oddChain->listSize; i++)
+	{
+		this->insert(i, *oddChain->get(i));
+
+	}
+
+	//link even chain to end of current chain
+	((chainNode*)(this->get(listSize-1)))->next = (chainNode*)evenChain->firstNode;
+	
+
+	//update listSize everywhere
+	this->listSize = oddChain->listSize + evenChain->listSize;
+	
 
 }
 
 void chain :: reverse()
 {
-	
-
+	chain *reversed = new chain(100);
+/*
+	int j = 0;
+	while (j < listSize){
+		for (int i = listSize-1; i >=0; i--)
+		{
+			reversed->insert(j, *this->get(i));
+		}
+		j++;
+	}
+*/
+	reversed->output();
 }
 
  
@@ -168,7 +183,7 @@ chainNode* chain :: getNode(const int theIndex)
 {
 	chainNode* testNode = firstNode;
 
-	for (int i = 0; i <= theIndex; i++)
+	for (int i = 0; i < theIndex; i++)
 	{
 		testNode = testNode->next;
 	}

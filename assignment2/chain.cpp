@@ -100,39 +100,27 @@ void chain :: oddAndEvenOrdering()
 		this->insert(i, *oddChain->get(i));
 	}
 
-	// Link even chain to end of current chain
+	// Link even chain to end of current chain (containing only odds so far)
 	((chainNode*)(this->get(listSize-1)))->next = (chainNode*)evenChain->firstNode;
 	
-
 	// Update listSize everywhere
 	this->listSize = oddChain->listSize + evenChain->listSize;
-	
-
 }
 
 void chain :: reverse()
 {
-	chain *reversed = new chain(100);
+	chainNode* p = firstNode;
+	chainNode* tmp = NULL;
+	chainNode* q = NULL;
 
-
-	int j = 0;
-	while (j < listSize){
-		for (int i = listSize-1; i >=0; i--)
-		{
-			reversed->insert(j, *this->get(i));
-			j++;
-		}
-
-	}
-	while(this->get(0) != NULL) {
-		this->erase(0);
-	}
-
-	for (int i = 0; i < reversed->listSize; i++)
+	while(p!=NULL)
 	{
-		this->insert(i, *reversed->get(i));
+		tmp = p;
+		p=p->next;
+		tmp->next=q;
+		q=tmp;
 	}
-	
+	firstNode = q;
 }
 
  

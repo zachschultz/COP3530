@@ -17,6 +17,7 @@ class chain : public linearList
 	  ~chain();
 	  
       bool empty() const {return listSize == 0;}
+      bool IsSorted() const;
       int size() const {return listSize;}
       int* get(int theIndex) const;
     

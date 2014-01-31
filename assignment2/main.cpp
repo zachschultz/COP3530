@@ -49,6 +49,9 @@ int main (int argc, char *argv[]){
 	cout<<"\n\n The reversed list is : "<<endl;
 	mychain->output();
 	
+	cout<<"Is mychain sorted?: "<<mychain->IsSorted()<<endl;
+	
+	
 
 
 }

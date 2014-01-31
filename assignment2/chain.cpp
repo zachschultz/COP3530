@@ -38,7 +38,17 @@ void chain :: readAndStoreFromFile(char* fileName)
 		cout << "Unable to open file";
 }
 
-
+bool chain :: IsSorted() const{
+	int tmp1, tmp2;
+		for (int i = 0; i < listSize-1; i++){
+			tmp1 = *this->get(i);
+			tmp2 = *this->get(i+1);
+			if (tmp1 > tmp2)
+				return false;
+		}
+	
+	return true;
+}
 
 void chain :: eraseModuloValue(int theInt)
 {
@@ -109,6 +119,7 @@ void chain :: oddAndEvenOrdering()
 
 void chain :: reverse()
 {
+	
 	chainNode* p = firstNode;
 	chainNode* tmp = NULL;
 	chainNode* q = NULL;

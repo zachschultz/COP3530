@@ -220,6 +220,7 @@ void mainProgramInterface :: call_dupStack()
 		cout<<"The copied stack is : ";
 		
 		myStack1->printStack();
+		cout<<endl;
 		
 
 		myStack->~derivedChainStack();
